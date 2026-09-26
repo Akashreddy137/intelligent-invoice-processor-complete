@@ -45,10 +45,29 @@ $("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"}
 
 function showView(v){
  currentView=v;
+
  document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
- const target=$("#"+v);target.classList.add("active");
- document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
- $("#title").textContent=v==="dashboard"?"Dashboard":v==="upload"?"Process Document":"Documents";
+
+ const target=$("#"+v);
+ target.classList.add("active");
+
+ document.querySelectorAll(".nav").forEach(x =>
+   x.classList.toggle("active",x.dataset.view===v)
+ );
+
+ $("#title").textContent =
+   v==="dashboard" ? "Dashboard" :
+   v==="upload" ? "Process Document" :
+   "Documents";
+
+ // Reset upload page whenever user chooses Process Document
+ if(v==="upload"){
+   $("#drop").classList.remove("hidden");
+   $("#processing").classList.add("hidden");
+   $("#result").classList.add("hidden");
+   $("#file").value="";
+ }
+
  if(v==="dashboard")loadStats();
  if(v==="documents")loadDocs();
 }
