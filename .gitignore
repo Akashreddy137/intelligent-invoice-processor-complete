@@ -1,0 +1,9 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+# Local data
+invoice.db
+uploads/*
+!uploads/.gitkeep
+.env

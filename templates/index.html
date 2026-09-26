@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InvoiceIQ | Intelligent Document Processing</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="authShell" class="auth-shell">
+  <div class="auth-brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 5h16l8 8v30H13z"/><path d="M29 5v9h8M19 22h12M19 28h12M19 34h8"/></svg>
+    </div>
+    <div><strong>InvoiceIQ</strong><span>Intelligent Document Processing</span></div>
+  </div>
+  <div class="auth-stage">
+    <div class="auth-copy">
+      <span class="eyebrow">DOCUMENT INTELLIGENCE</span>
+      <h1>Turn invoices into structured data.</h1>
+      <p>Upload a receipt or invoice, extract key fields with OCR, validate the result and manage your documents from one workspace.</p>
+      <div class="auth-points">
+        <div><span class="point-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><span>Fast document processing</span></div>
+        <div><span class="point-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span>Structured invoice fields</span></div>
+        <div><span class="point-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg></span><span>Validation and duplicate checks</span></div>
+      </div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="tab active" data-auth="login">Log in</button>
+        <button class="tab" data-auth="signup">Sign up</button>
+      </div>
+      <div id="loginForm" class="auth-form active">
+        <div class="form-heading"><h2>Welcome back</h2><p>Log in to access your document workspace.</p></div>
+        <label>Email<input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<div class="password-wrap"><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" class="eye" data-target="loginPassword" aria-label="Show password"><svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div></label>
+        <button id="loginBtn" class="primary full">Log in</button>
+        <p class="switch-text">New here? <button class="inline-switch" data-auth="signup">Create an account</button></p>
+      </div>
+      <div id="signupForm" class="auth-form">
+        <div class="form-heading"><h2>Create your account</h2><p>Set up a private workspace for your invoices.</p></div>
+        <label>Full name<input id="signupName" type="text" autocomplete="name" placeholder="Your full name"></label>
+        <label>Email<input id="signupEmail" type="email" autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<div class="password-wrap"><input id="signupPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters"><button type="button" class="eye" data-target="signupPassword" aria-label="Show password"><svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div></label>
+        <label>Confirm password<input id="signupConfirm" type="password" autocomplete="new-password" placeholder="Re-enter your password"></label>
+        <button id="signupBtn" class="primary full">Create account</button>
+        <p class="switch-text">Already registered? <button class="inline-switch" data-auth="login">Log in</button></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="appShell" class="app-shell hidden">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark small"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 5h16l8 8v30H13z"/><path d="M29 5v9h8M19 22h12M19 28h12M19 34h8"/></svg></div>
+      <div><strong>InvoiceIQ</strong><span>Document Processing</span></div>
+    </div>
+    <nav>
+      <button class="nav active" data-view="dashboard"><svg viewBox="0 0 24 24"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM14 9h6V4h-6zM4 20h6v-3H4z"/></svg><span>Dashboard</span></button>
+      <button class="nav" data-view="upload"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>Process Document</span></button>
+      <button class="nav" data-view="documents"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h6M9 16h6"/></svg><span>Documents</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-mini"><div id="userInitials" class="avatar">U</div><div><strong id="sideName">User</strong><span id="sideEmail">user@example.com</span></div></div>
+      <button id="logoutBtn" class="logout"><svg viewBox="0 0 24 24"><path d="M10 5H5v14h5M14 8l4 4-4 4M8 12h10"/></svg><span>Log out</span></button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><span class="eyebrow">DOCUMENT INTELLIGENCE</span><h1 id="title">Dashboard</h1></div>
+      <div class="top-actions"><span id="welcomeName" class="welcome"></span><button class="primary" onclick="showView('upload')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Process invoice</button></div>
+    </header>
+
+    <section id="dashboard" class="view active">
+      <div class="cards">
+        <div class="metric"><span>Documents</span><strong id="statDocs">0</strong><small>processed in your workspace</small></div>
+        <div class="metric"><span>Total amount</span><strong id="statTotal">₹0</strong><small>from extracted totals</small></div>
+        <div class="metric"><span>Total tax</span><strong id="statTax">₹0</strong><small>extracted tax value</small></div>
+        <div class="metric"><span>Duplicates</span><strong id="statDup">0</strong><small>possible duplicate records</small></div>
+      </div>
+      <div class="grid2">
+        <div class="panel"><div class="panel-head"><div><h2>Category summary</h2><p>Amount by document category</p></div><span class="live">Live</span></div><div id="categories" class="bars"></div></div>
+        <div class="panel"><div class="panel-head"><div><h2>Recent documents</h2><p>Latest processed records</p></div><button class="link" onclick="showView('documents')">View all</button></div><div id="recent"></div></div>
+      </div>
+      <div class="panel workflow"><div class="workflow-step"><span>01</span><b>Upload</b><p>Invoice or receipt image</p></div><i></i><div class="workflow-step"><span>02</span><b>OCR</b><p>Read document text</p></div><i></i><div class="workflow-step"><span>03</span><b>Extract</b><p>Identify key fields</p></div><i></i><div class="workflow-step"><span>04</span><b>Validate</b><p>Check missing and duplicate data</p></div></div>
+    </section>
+
+    <section id="upload" class="view">
+      <div class="panel upload-panel">
+        <div class="upload-box" id="drop">
+          <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></div>
+          <h2>Upload an invoice or receipt</h2><p>Drag and drop an image here, or choose a file from your device.</p>
+          <input id="file" type="file" accept="image/*" hidden>
+          <button class="primary" onclick="document.getElementById('file').click()">Choose image</button>
+          <small>PNG, JPG, JPEG, WEBP, BMP, TIFF · Maximum 10 MB</small>
+        </div>
+        <div id="processing" class="processing hidden"><div class="spinner"></div><h2>Analyzing document</h2><p>OCR, field extraction, validation and duplicate checking are running.</p></div>
+      </div>
+      <div id="result" class="hidden"></div>
+    </section>
+
+    <section id="documents" class="view">
+      <div class="panel"><div class="toolbar"><div><h2>Document history</h2><p>Search and manage processed invoices and receipts.</p></div><div class="search-wrap"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" placeholder="Search vendor, invoice, category"></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Document</th><th>Vendor</th><th>Date</th><th>Category</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody id="table"></tbody></table></div></div>
+    </section>
+  </main>
+</div>
+<div id="toast" role="status"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
